@@ -1,0 +1,65 @@
+# =========================
+# 🐍 PYTHON
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# 🧪 VIRTUAL ENV
+# =========================
+ML_CP/
+venv/
+.env/
+
+# =========================
+# 📓 JUPYTER
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# 💻 OS FILES
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# 📦 DATA (UNNECESSARY FILES)
+# =========================
+archive/
+heart+disease/
+
+# Keep only required datasets
+# (you manually keep cleveland.data & housing.csv)
+
+# =========================
+# 🧠 MODELS (OPTIONAL)
+# =========================
+# Uncomment if you DON'T want to upload models
+# models/*.pkl
+
+# =========================
+# 📊 LARGE FILES
+# =========================
+*.zip
+*.tar
+*.gz
+
+# =========================
+# 📝 LOGS
+# =========================
+*.log
+
+# =========================
+# 🔐 ENV FILES
+# =========================
+.env
+
+# =========================
+# 🧾 TEMP FILES
+# =========================
+*.tmp
+*.bak
+
+models/*.pkl
