@@ -8,7 +8,10 @@ from src.models_reg.ridge import train_ridge
 from src.models_reg.lasso import train_lasso
 from src.models_reg.rf_reg import train_rf_reg
 
+import os
+
 def train_regression():
+    os.makedirs("models", exist_ok=True)
 
     X, y, scaler, features = preprocess_regression("data/housing.csv")
 

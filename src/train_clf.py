@@ -7,7 +7,10 @@ from src.models_clf.logistic import train_logistic
 from src.models_clf.svm import train_svm
 from src.models_clf.rf import train_rf
 
+import os
+
 def train_classification():
+    os.makedirs("models", exist_ok=True)    
 
     X, y, scaler, features = preprocess_data("data/processed.cleveland.data")
 

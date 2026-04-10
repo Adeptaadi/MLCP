@@ -167,7 +167,7 @@ def run_mode1():
         for i, f in enumerate(features):
             vals[i] = cols[i % 3].number_input(f, value=float(vals[i]), key=f"clf_{i}")
 
-        X = np.array(vals).reshape(1, -1)
+        X = pd.DataFrame([vals], columns=features)
 
         if st.button("🚀 Predict (Clf)"):
 
@@ -223,7 +223,7 @@ def run_mode1():
         final_input = {**numeric_inputs, **ocean_features}
 
         # Convert to ordered array
-        X = np.array([final_input[f] for f in features]).reshape(1, -1)
+        X = pd.DataFrame([final_input], columns=features)
         X_scaled = scaler.transform(X)
 
         if st.button("🚀 Predict (Reg)"):
