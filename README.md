@@ -34,7 +34,7 @@
 
 ## 🎯 Overview
 
-**AntiGravity** is a full-stack machine learning system designed for both **prediction** and **interpretability**. Upload any CSV dataset, and AntiGravity automatically preprocesses your data, trains multiple competing models, selects the best performer, and explains every prediction using SHAP — all through a clean, interactive Streamlit interface.
+**AntiGravity** is a full-stack machine learning system designed for both **prediction** and **interpretability**. Upload any CSV dataset, and AntiGravity automatically preprocesses your data, trains multiple competing models, selects the best performer, and explains model predictions using SHAP and feature-based interpretation — all through a clean, interactive Streamlit interface.
 
 Built as a second-year CS project at VIT Pune, AntiGravity demonstrates that knowing *why* a model makes a decision is just as valuable as the decision itself.
 
@@ -44,7 +44,7 @@ Built as a second-year CS project at VIT Pune, AntiGravity demonstrates that kno
 ✅ **Multi-Model Competition** — Multiple algorithms trained in parallel and compared objectively  
 ✅ **SHAP Explainability** — Feature importance visualized for every prediction  
 ✅ **Dual Problem Support** — Handles Classification and Regression automatically  
-✅ **Automatic Task Detection** — Determines classification vs. regression from target column  
+✅ **Heuristic-based task detection** — Determines classification vs. regression from target column  
 ✅ **Clean Architecture** — Separated concerns across `app/`, `src/`, and `models/`  
 
 ---
@@ -56,7 +56,7 @@ Built as a second-year CS project at VIT Pune, AntiGravity demonstrates that kno
 - Supports **Classification** and **Regression** tasks
 - Trains and compares multiple models simultaneously:
   - **Classification:** Logistic Regression, SVM, Random Forest
-  - **Regression:** Linear, Ridge, Lasso
+  - **Regression:** Linear, Ridge, Lasso, Random Forest Regressor
 - Displays side-by-side model performance comparison
 - Provides SHAP-based explanations:
   - Mode 1: Per-prediction (local) explanation
@@ -105,7 +105,7 @@ Built as a second-year CS project at VIT Pune, AntiGravity demonstrates that kno
 │            src/                  │
 │  preprocess_clf / preprocess_reg │  ← Data cleaning & encoding
 │  train_clf / train_reg           │  ← Model training & comparison
-│  predict.py                      │  ← Inference + SHAP explanation
+│  predict.py                      │  ← Inference and model prediction handling
 └──────────────────────────────────┘
         │
         ▼
@@ -292,7 +292,8 @@ No user configuration required.
 
 ### 2. Unified Preprocessing Interface
 
-Both modes share the same underlying preprocessing logic, ensuring consistency between training and inference. The pipeline handles:
+Both modes follow consistent preprocessing principles for cleaning, encoding, and scaling.
+The pipeline handles:
 - Missing value handling (rows with missing values are removed)
 - Label encoding & one-hot encoding
 - Standard scaling before model training
@@ -305,7 +306,7 @@ explainer = shap.TreeExplainer(best_model)
 shap_values = explainer.shap_values(X_test)
 
 # Linear explainer (Logistic Regression, Ridge, etc.)
-explainer = shap.LinearExplainer(best_model, X_train)
+explainer = shap.TreeExplainer(best_model, X_train)
 shap_values = explainer.shap_values(X_test)
 ```
 
@@ -315,7 +316,7 @@ Best models are persisted to `models/` using Joblib, allowing predictions to be 
 
 ### 5. Streamlit State Management
 
-`st.session_state` is used to preserve trained models and preprocessing objects across UI interactions, avoiding redundant recomputation.
+`st.session_state` is used to preserve generated input values and improve user interaction flow.
 
 ---
 
